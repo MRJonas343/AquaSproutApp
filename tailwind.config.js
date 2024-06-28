@@ -5,7 +5,12 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        BlackOps : ['Black Ops One', 'sans-serif'],
+        Oswald : ['Oswald', 'sans-serif'],
+      }
+    },
   },
   plugins: [],
 };
