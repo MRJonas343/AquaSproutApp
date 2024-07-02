@@ -1,15 +1,39 @@
-import { View, Text, Image, TextInput } from "react-native"
+import { View, Text, Image, TextInput, Alert } from "react-native"
 const logoImage = require("../src/assets/images/loginLogin.png")
 import { router } from "expo-router"
-import { useState } from "react"
+import { useRef } from "react"
 
 const Page = () => {
-	const [userName, setUserName] = useState()
-	const [password, setPassword] = useState()
+	const userEmailRef = useRef("")
+	const passwordRef = useRef("")
 
-	const loginUser = () => {
-		setUserName(userName)
-		setPassword(password)
+	const loginUser = async () => {
+		const email = userEmailRef.current
+		const password = passwordRef.current
+
+		if (!email || !password) {
+			Alert.alert("Please fill all the fields")
+			return
+		}
+		const backendURL = process.env.EXPO_PUBLIC_API_URL
+
+		// try {
+		// 	//*API CALL
+		// 	const backendURL = "http://localhost:3000/login"
+		// 	const headers = new Headers()
+		// 	headers.append("Content-Type", "application/json")
+		// 	headers.append("Accept", "application/json")
+		// 	headers.append("email", email)
+		// 	headers.append("password", password)
+		// 	const response = await fetch(backendURL, {
+		// 		method: "GET",
+		// 		headers: headers,
+		// 	})
+		// } catch (error) {
+		// 	console.log(error)
+		// 	Alert.alert("Error creating user")
+		// }
+
 		router.push("/dashboard")
 	}
 	return (
@@ -18,7 +42,7 @@ const Page = () => {
 				<Image
 					className="flex mx-auto mt-10 rounded-md"
 					source={logoImage}
-					style={{ width: 300, height: 300 }}
+					style={{ width: 300, height: 260 }}
 				/>
 				<Text
 					className="text-4xl text-[#04D4F0] text-center mt-10"
@@ -31,11 +55,13 @@ const Page = () => {
 				</Text>
 				<View className="flex mx-10 mt-4">
 					<Text className="text-lg" style={styles.fontSecundary}>
-						UserName
+						Email
 					</Text>
 
 					<TextInput
-						value={userName}
+						onChangeText={(text) => {
+							userEmailRef.current = text
+						}}
 						className="border-2 mb-5 w-full border-gray-700 bg-gray-100 rounded-md mt-2 px-2 py-1"
 						style={styles.fontSecundary}
 					/>
@@ -45,7 +71,9 @@ const Page = () => {
 					</Text>
 
 					<TextInput
-						value={password}
+						onChangeText={(text) => {
+							passwordRef.current = text
+						}}
 						className="border-2 mb-5 w-full border-gray-700 bg-gray-100 rounded-md mt-2 px-2 py-1"
 						style={styles.fontSecundary}
 					/>
@@ -60,6 +88,19 @@ const Page = () => {
 						>
 							Login
 						</Text>
+					</View>
+					<View className="flex flex-row gap-2 justify-center mt-2">
+						<Text className="text-lg" style={styles.fontSecundary}>
+							Dont you have an account?
+						</Text>
+						<View onTouchEnd={() => router.push("/signup")}>
+							<Text
+								style={styles.fontSecundary}
+								className="text-blue-600 text-lg"
+							>
+								Create one
+							</Text>
+						</View>
 					</View>
 				</View>
 			</View>
