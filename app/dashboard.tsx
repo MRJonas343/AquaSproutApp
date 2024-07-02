@@ -1,4 +1,6 @@
 import { View, Text, Image, Alert } from "react-native"
+import { Dimensions } from "react-native"
+import { LineChart } from "react-native-chart-kit"
 const sansevieriaImage = require("../src/assets/images/sanseveria.jpg")
 const IoTLogo = require("../src/assets/images/iot.png")
 const plantLogo = require("../src/assets/images/planta.png")
@@ -8,7 +10,7 @@ const noWatering = require("../src/assets/images/sin-grasa.png")
 const Page = () => {
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
-			<View className="bg-white p-4 w-[90%] flex mx-auto h-[90%] rounded-xl">
+			<View className="bg-white p-4 w-[90%] flex mx-auto h-[92%] rounded-xl">
 				<View className="flex flex-row justify-around">
 					<Image className="w-10 h-10" source={IoTLogo} />
 					<Text
@@ -20,7 +22,7 @@ const Page = () => {
 					<Image className="w-10 h-10" source={plantLogo} />
 				</View>
 				<Text
-					className="text-2xl pb-1 text-[#D7F039] text-left mt-10"
+					className="text-2xl pb-1 text-[#D7F039] text-left mt-3"
 					style={[styles.fontMain, styles.strokeEffect]}
 				>
 					Sansevieria
@@ -46,24 +48,52 @@ const Page = () => {
 					</View>
 				</View>
 				<Text
-					className="text-2xl pb-1 text-[#04F093] text-center mt-4"
+					className="text-2xl mb-2 text-[#04F093] text-center mt-4"
 					style={[styles.fontMain, styles.strokeEffect]}
 				>
 					Humidity
 				</Text>
+				<View className="flex mx-1 items-center bg-[#04F093] pt-4 rounded-md">
+					<LineChart
+						data={{
+							labels: ["Humidity"],
+							datasets: [
+								{
+									data: [350, 460, 470, 420, 500, 600, 700, 800, 900, 1256],
+								},
+							],
+						}}
+						width={Dimensions.get("window").width * 0.8}
+						height={220}
+						chartConfig={{
+							backgroundGradientFrom: "#04F093",
+							backgroundGradientTo: "#04F093",
+							decimalPlaces: 0,
+							color: (opacity = 1) => `rgba(0, 73, 255, ${opacity})`,
+							labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+							propsForDots: {
+								r: "4",
+								strokeWidth: 1,
+								stroke: "#0049FF",
+							},
+							propsForLabels: {
+								textAnchor: "end",
+							},
+							propsForBackgroundLines: {
+								stroke: "#FFF",
+							},
+						}}
+						style={styles.tableStyle}
+					/>
+				</View>
 
-				<Image
-					className="mx-auto mt-6"
-					style={[{ width: 300, height: 150 }, styles.dropShadow]}
-					source={chartImage}
-				/>
 				<Text
 					className="text-2xl pb-1 text-[#F0A004] text-center mt-4"
 					style={[styles.fontMain, styles.strokeEffect]}
 				>
 					Actions
 				</Text>
-				<View className="mx-6">
+				<View className="mx-2">
 					<View
 						className="w-full flex flex-row justify-around mb-4 bg-[#10E78F] p-4 rounded-md mt-2"
 						onTouchEnd={() => {
@@ -118,5 +148,9 @@ const styles = {
 			height: 2,
 		},
 		elevation: 5,
+	},
+	tableStyle: {
+		marginVertical: 8,
+		borderRadius: 6,
 	},
 }
