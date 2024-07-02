@@ -1,9 +1,9 @@
 import { View } from "react-native"
-import Login from "./screens/login/Login"
+import Page from "./login"
 const App = () => {
 	return (
 		<View>
-			<Login />
+			<Page />
 		</View>
 	)
 }
