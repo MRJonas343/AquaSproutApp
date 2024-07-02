@@ -4,7 +4,6 @@ import { LineChart } from "react-native-chart-kit"
 const sansevieriaImage = require("../src/assets/images/sanseveria.jpg")
 const IoTLogo = require("../src/assets/images/iot.png")
 const plantLogo = require("../src/assets/images/planta.png")
-const chartImage = require("../src/assets/images/chart.png")
 const watering = require("../src/assets/images/regando-plantas.png")
 const noWatering = require("../src/assets/images/sin-grasa.png")
 const Page = () => {
