@@ -6,7 +6,13 @@ const IoTLogo = require("../src/assets/images/iot.png")
 const plantLogo = require("../src/assets/images/planta.png")
 const watering = require("../src/assets/images/regando-plantas.png")
 const noWatering = require("../src/assets/images/sin-grasa.png")
+import { waterStore } from "../src/hooks/store"
 const Page = () => {
+	const plant = waterStore((state) => state.plant)
+	const lecturas = waterStore((state) => state.lecturas)
+	const wateringInfo = waterStore((state) => state.wateringInfo)
+	const lastTimeWatered = waterStore((state) => state.lastTimeWatered)
+
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
 			<View className="bg-white p-4 w-[90%] flex mx-auto h-[92%] rounded-xl">
@@ -24,7 +30,7 @@ const Page = () => {
 					className="text-2xl pb-1 text-[#D7F039] text-left mt-3"
 					style={[styles.fontMain, styles.strokeEffect]}
 				>
-					Sansevieria
+					{plant}
 				</Text>
 				<View className="flex flex-row p-2 gap-5">
 					<Image
@@ -36,13 +42,13 @@ const Page = () => {
 							className="text-lg text-left pb-2"
 							style={[styles.fontSecundary]}
 						>
-							Number of waterings: 3
+							Number of waterings: {wateringInfo}
 						</Text>
 						<Text
 							className="text-lg text-left pb-4"
 							style={[styles.fontSecundary]}
 						>
-							Last water was at : 18:39
+							Last water : {lastTimeWatered?.slice(0, 10)}
 						</Text>
 					</View>
 				</View>
@@ -58,7 +64,7 @@ const Page = () => {
 							labels: ["Humidity"],
 							datasets: [
 								{
-									data: [350, 460, 470, 420, 500, 600, 700, 800, 900, 1256],
+									data: lecturas,
 								},
 							],
 						}}

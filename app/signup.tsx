@@ -22,10 +22,11 @@ const Page = () => {
 
 		try {
 			//*API CALL
-			const backendURL = "http://localhost:3000/signup"
+			//const backendURL = `${process.env.EXPO_PUBLIC_API_URL}/authAquaSprout/signup`
+			const backendURL = "http://192.168.0.192:3000/authAquaSprout/signup"
+			console.log(backendURL)
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
-			headers.append("Accept", "application/json")
 			const response = await fetch(backendURL, {
 				method: "POST",
 				headers: headers,
@@ -33,7 +34,7 @@ const Page = () => {
 			})
 
 			if (response.status !== 200) {
-				Alert.alert("Error creating user")
+				Alert.alert("No 200")
 				return
 			}
 

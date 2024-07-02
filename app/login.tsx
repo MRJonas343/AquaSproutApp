@@ -2,10 +2,17 @@ import { View, Text, Image, TextInput, Alert } from "react-native"
 const logoImage = require("../src/assets/images/loginLogin.png")
 import { router } from "expo-router"
 import { useRef } from "react"
-
+import { waterStore } from "../src/hooks/store"
 const Page = () => {
 	const userEmailRef = useRef("")
 	const passwordRef = useRef("")
+
+	const setUserName = waterStore((state) => state.setUserName)
+	const setEmail = waterStore((state) => state.setEmail)
+	const setPlant = waterStore((state) => state.setPlant)
+	const setLecturas = waterStore((state) => state.setLecturas)
+	const setWateringInfo = waterStore((state) => state.setWateringInfo)
+	const setLastTimeWatered = waterStore((state) => state.setLastTimeWatered)
 
 	const loginUser = async () => {
 		const email = userEmailRef.current
@@ -15,24 +22,32 @@ const Page = () => {
 			Alert.alert("Please fill all the fields")
 			return
 		}
-		const backendURL = process.env.EXPO_PUBLIC_API_URL
+		//const backendURL = process.env.EXPO_PUBLIC_API_URL
 
-		// try {
-		// 	//*API CALL
-		// 	const backendURL = "http://localhost:3000/login"
-		// 	const headers = new Headers()
-		// 	headers.append("Content-Type", "application/json")
-		// 	headers.append("Accept", "application/json")
-		// 	headers.append("email", email)
-		// 	headers.append("password", password)
-		// 	const response = await fetch(backendURL, {
-		// 		method: "GET",
-		// 		headers: headers,
-		// 	})
-		// } catch (error) {
-		// 	console.log(error)
-		// 	Alert.alert("Error creating user")
-		// }
+		try {
+			//*API CALL
+			const backendURL = "http://192.168.0.192:3000/authAquaSprout/login"
+			const headers = new Headers()
+			headers.append("Content-Type", "application/json")
+			headers.append("email", email)
+			headers.append("password", password)
+
+			const response = await fetch(backendURL, {
+				method: "GET",
+				headers: headers,
+			})
+
+			const data = await response.json()
+			setPlant(data.plant)
+			setEmail(data.email)
+			setLastTimeWatered(data.lastTimeWatered)
+			setLecturas(data.lecturas)
+			setWateringInfo(data.wateringInfo)
+			setUserName(data.userName)
+		} catch (error) {
+			console.log(error)
+			Alert.alert("Error creating user")
+		}
 
 		router.push("/dashboard")
 	}
