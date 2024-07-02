@@ -1,19 +1,9 @@
-import { View, Text, Image, TextInput, Button, Alert } from "react-native"
-import { useFonts } from "expo-font"
+import { View, Text, Image, TextInput } from "react-native"
 const logoImage = require("../src/assets/images/loginLogin.png")
 import { router } from "expo-router"
 import { useState } from "react"
 
 const Page = () => {
-	const [fontsLoaded] = useFonts({
-		"Black-Ops-One": require("../src/assets/fonts/BlackOpsOne-Regular.ttf"),
-		Oswald: require("../src/assets/fonts/Oswald-VariableFont_wght.ttf"),
-	})
-
-	if (!fontsLoaded) {
-		return <Text>Loading...</Text>
-	}
-
 	const [userName, setUserName] = useState()
 	const [password, setPassword] = useState()
 
