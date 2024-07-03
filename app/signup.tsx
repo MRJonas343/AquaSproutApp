@@ -23,7 +23,6 @@ const Page = () => {
 		try {
 			//*API CALL
 			const backendURL = `${process.env.EXPO_PUBLIC_API_URL}/signup`
-			console.log(backendURL)
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			const response = await fetch(backendURL, {
