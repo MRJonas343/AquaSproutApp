@@ -22,11 +22,10 @@ const Page = () => {
 			Alert.alert("Please fill all the fields")
 			return
 		}
-		//const backendURL = process.env.EXPO_PUBLIC_API_URL
 
 		try {
 			//*API CALL
-			const backendURL = "http://192.168.0.192:3000/authAquaSprout/login"
+			const backendURL = `${process.env.EXPO_PUBLIC_API_URL}/login `
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			headers.append("email", email)
