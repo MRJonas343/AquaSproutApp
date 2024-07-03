@@ -22,7 +22,8 @@ const Page = () => {
 
 		try {
 			//*API CALL
-			const backendURL = `${process.env.EXPO_PUBLIC_API_URL}/signup`
+			const backendURL = "http://192.168.0.192:3000/authAquaSprout/signup"
+			console.log(backendURL)
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			const response = await fetch(backendURL, {
