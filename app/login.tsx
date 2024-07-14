@@ -24,31 +24,30 @@ const Page = () => {
 		}
 
 		try {
-			//*API CALL
-			const backendURL = "http://192.168.0.192:3000/authAquaSprout/login"
-			const headers = new Headers()
-			headers.append("Content-Type", "application/json")
-			headers.append("email", email)
-			headers.append("password", password)
+			// //*API CALL
+			// const backendURL = "http://192.168.0.192:3000/authAquaSprout/login"
+			// const headers = new Headers()
+			// headers.append("Content-Type", "application/json")
+			// headers.append("email", email)
+			// headers.append("password", password)
 
-			const response = await fetch(backendURL, {
-				method: "GET",
-				headers: headers,
-			})
+			// const response = await fetch(backendURL, {
+			// 	method: "GET",
+			// 	headers: headers,
+			// })
 
-			const data = await response.json()
-			setPlant(data.plant)
-			setEmail(data.email)
-			setLastTimeWatered(data.lastTimeWatered)
-			setLecturas(data.lecturas)
-			setWateringInfo(data.wateringInfo)
-			setUserName(data.userName)
+			// const data = await response.json()
+			// setPlant(data.plant)
+			// setEmail(data.email)
+			// setLastTimeWatered(data.lastTimeWatered)
+			// setLecturas(data.lecturas)
+			// setWateringInfo(data.wateringInfo)
+			// setUserName(data.userName)
+			router.push("/dashboard")
 		} catch (error) {
 			console.log(error)
 			Alert.alert("Error creating user")
 		}
-
-		router.push("/dashboard")
 	}
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
