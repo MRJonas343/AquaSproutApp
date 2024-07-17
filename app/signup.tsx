@@ -22,8 +22,8 @@ const Page = () => {
 
 		try {
 			//*API CALL
-			const backendURL = "http://192.168.0.192:3000/authAquaSprout/signup"
-			console.log(backendURL)
+			const backendURL =
+				"https://aquasproutbackend-production.up.railway.app/signup"
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			const response = await fetch(backendURL, {
@@ -32,7 +32,7 @@ const Page = () => {
 				body: JSON.stringify({ plant, userName, email, password }),
 			})
 
-			if (response.status !== 200) {
+			if (response.status !== 201) {
 				Alert.alert("No 200")
 				return
 			}

@@ -25,18 +25,30 @@ const Page = () => {
 
 		try {
 			// //*API CALL
-			// const backendURL = "http://192.168.0.192:3000/authAquaSprout/login"
-			// const headers = new Headers()
-			// headers.append("Content-Type", "application/json")
-			// headers.append("email", email)
-			// headers.append("password", password)
+			const backendURL =
+				"https://aquasproutbackend-production.up.railway.app/login"
+			const headers = new Headers()
+			headers.append("Content-Type", "application/json")
+			headers.append("email", email)
+			headers.append("password", password)
 
-			// const response = await fetch(backendURL, {
-			// 	method: "GET",
-			// 	headers: headers,
-			// })
+			const response = await fetch(backendURL, {
+				method: "GET",
+				headers: headers,
+			})
 
-			// const data = await response.json()
+			if (response.status === 404) {
+				Alert.alert("User not found")
+				return
+			}
+
+			if (response.status === 400) {
+				Alert.alert("Invalid password")
+				return
+			}
+
+			const data = await response.json()
+			console.log(data)
 			// setPlant(data.plant)
 			// setEmail(data.email)
 			// setLastTimeWatered(data.lastTimeWatered)
