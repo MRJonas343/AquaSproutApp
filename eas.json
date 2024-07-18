@@ -8,9 +8,9 @@
 			"distribution": "internal"
 		},
 		"preview": {
-      "ios" :{
-        "simukator": true
-      },
+			"ios": {
+				"simulator": true
+			},
 			"android": {
 				"buildType": "apk"
 			}

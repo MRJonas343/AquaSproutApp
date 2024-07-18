@@ -26,7 +26,7 @@ const Page = () => {
 		try {
 			// //*API CALL
 			const backendURL =
-				"https://aquasproutbackend-production.up.railway.app/login"
+				"https://aquasproutbackend-production.up.railway.app/signup"
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			headers.append("email", email)
@@ -48,14 +48,21 @@ const Page = () => {
 			}
 
 			const data = await response.json()
+
+			setUserName(data.user.name)
+			setEmail(data.user.email)
+			setPlant(data.user.plant)
+			setLecturas(data.readings)
+			//*Format the last reading
+			const originalDate = data.reading
+			const formattedDate = new Date(originalDate).toISOString().split("T")[0]
+			setLastTimeWatered(formattedDate)
+			setWateringInfo(data.readings.length)
+			alert(`Welcome${data.user.name}`)
 			console.log(data)
-			// setPlant(data.plant)
-			// setEmail(data.email)
-			// setLastTimeWatered(data.lastTimeWatered)
-			// setLecturas(data.lecturas)
-			// setWateringInfo(data.wateringInfo)
-			// setUserName(data.userName)
-			router.push("/dashboard")
+			setTimeout(() => {
+				router.push("/dashboard")
+			}, 2000)
 		} catch (error) {
 			console.log(error)
 			Alert.alert("Error creating user")
@@ -67,7 +74,7 @@ const Page = () => {
 				<Image
 					className="flex mx-auto mt-10 rounded-md"
 					source={logoImage}
-					style={{ width: 300, height: 260 }}
+					style={{ width: 250, height: 200 }}
 				/>
 				<Text
 					className="text-4xl text-[#04D4F0] text-center mt-10"

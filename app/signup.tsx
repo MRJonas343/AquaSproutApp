@@ -33,7 +33,7 @@ const Page = () => {
 			})
 
 			if (response.status !== 201) {
-				Alert.alert("No 200")
+				Alert.alert("Error creating user")
 				return
 			}
 
@@ -52,15 +52,15 @@ const Page = () => {
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
 			<View className="bg-white w-[90%] flex mx-auto h-[90%] rounded-xl">
 				<Text
-					className="text-4xl text-[#04D4F0] text-center mt-10"
+					className="text-3xl text-[#04D4F0] text-center mt-5"
 					style={[styles.fontMain, styles.strokeEffect]}
 				>
 					Create Account
 				</Text>
 				<Image
-					className="flex mx-auto mt-10 rounded-md"
+					className="flex mx-auto mt-5 rounded-md"
 					source={plant}
-					style={{ width: 100, height: 100 }}
+					style={{ width: 80, height: 80 }}
 				/>
 				<View className="flex mx-10 mt-4">
 					<Text className="text-lg" style={styles.fontSecundary}>

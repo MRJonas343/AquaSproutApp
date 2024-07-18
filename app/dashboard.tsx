@@ -8,15 +8,10 @@ const watering = require("../src/assets/images/regando-plantas.png")
 const noWatering = require("../src/assets/images/sin-grasa.png")
 import { waterStore } from "../src/hooks/store"
 const Page = () => {
-	// const plant = waterStore((state) => state.plant)
-	// const lecturas = waterStore((state) => state.lecturas)
-	// const wateringInfo = waterStore((state) => state.wateringInfo)
-	// const lastTimeWatered = waterStore((state) => state.lastTimeWatered)
-	const plant = "Sansevieria"
-	const lecturas = [40, 50, 60, 70, 80, 90, 100]
-	const wateringInfo = 3
-	const lastTimeWatered = "2021-10-10T10:00:00.000Z"
-
+	const plant = waterStore((state) => state.plant)
+	const lecturas = waterStore((state) => state.lecturas)
+	const wateringInfo = waterStore((state) => state.wateringInfo)
+	const lastTimeWatered = waterStore((state) => state.lastTimeWatered)
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
 			<View className="bg-white p-4 w-[90%] flex mx-auto h-[92%] rounded-xl">
