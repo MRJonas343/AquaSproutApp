@@ -6,13 +6,41 @@ const IoTLogo = require("../src/assets/images/iot.png")
 const plantLogo = require("../src/assets/images/planta.png")
 const watering = require("../src/assets/images/regando-plantas.png")
 const noWatering = require("../src/assets/images/sin-grasa.png")
-import { waterStore } from "../src/hooks/store"
+import { useState, useEffect } from "react"
 
 const Page = () => {
-	const plant = waterStore((state) => state.plant)
-	const lecturas = waterStore((state) => state.lecturas)
-	const wateringInfo = waterStore((state) => state.wateringInfo)
-	const lastTimeWatered = waterStore((state) => state.lastTimeWatered)
+	const [plant, setPlant] = useState("Sansevieria")
+	const [lecturas, setLecturas] = useState<number[]>([])
+	const [numberOfWaterings, setNumberOfWaterings] = useState(3)
+	const [lastTimeWatered, setLastTimeWatered] = useState("2022-01-01")
+
+	const getData = async () => {
+		const backendURL =
+			"https://aquasproutbackend-production.up.railway.app/data"
+		const headers = new Headers()
+		headers.append("Content-Type", "application/json")
+
+		const response = await fetch(backendURL, {
+			method: "GET",
+			headers: headers,
+		})
+
+		if (response.status !== 200) {
+			Alert.alert("Error fetching data")
+			return
+		}
+
+		const data = await response.json()
+		setLecturas(data.readings)
+		const formattedDate = new Date(data.lastReading.date)
+			.toISOString()
+			.split("T")[0]
+		setLastTimeWatered(formattedDate)
+	}
+
+	useEffect(() => {
+		getData()
+	}, [])
 
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
@@ -43,7 +71,7 @@ const Page = () => {
 							className="text-lg text-left pb-2"
 							style={[styles.fontSecundary]}
 						>
-							Number of waterings: {wateringInfo}
+							Number of waterings: {numberOfWaterings}
 						</Text>
 						<Text
 							className="text-lg text-left pb-4"

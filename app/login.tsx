@@ -48,6 +48,39 @@ const Page = () => {
 
 			const data = await response.json()
 
+			alert(`Welcome${data.name}`)
+			setTimeout(() => {
+				router.push("/dashboard")
+			}, 2000)
+		} catch (error) {
+			Alert.alert("An error ocurred")
+		}
+
+		try {
+			const backendURL =
+				"https://aquasproutbackend-production.up.railway.app/login"
+			const headers = new Headers()
+			headers.append("Content-Type", "application/json")
+			headers.append("email", email)
+			headers.append("password", password)
+
+			const response = await fetch(backendURL, {
+				method: "GET",
+				headers: headers,
+			})
+
+			if (response.status === 404) {
+				Alert.alert("User not found")
+				return
+			}
+
+			if (response.status === 400) {
+				Alert.alert("Invalid password")
+				return
+			}
+
+			const data = await response.json()
+
 			setUserName(data.user.name)
 			setEmail(data.user.email)
 			setPlant(data.user.plant)
