@@ -57,13 +57,11 @@ const Page = () => {
 			setLastTimeWatered(formattedDate)
 			setWateringInfo(data.readings.length)
 			alert(`Welcome${data.user.name}`)
-			console.log(data)
 			setTimeout(() => {
 				router.push("/dashboard")
 			}, 2000)
-			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-		} catch (error: any) {
-			Alert.alert(error.message)
+		} catch (error) {
+			Alert.alert("An error ocurred")
 		}
 	}
 	return (
