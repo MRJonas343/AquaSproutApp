@@ -2,17 +2,9 @@ import { View, Text, Image, TextInput, Alert } from "react-native"
 const logoImage = require("../src/assets/images/loginLogin.png")
 import { router } from "expo-router"
 import { useRef } from "react"
-import { waterStore } from "../src/hooks/store"
 const Page = () => {
 	const userEmailRef = useRef("")
 	const passwordRef = useRef("")
-
-	const setUserName = waterStore((state) => state.setUserName)
-	const setEmail = waterStore((state) => state.setEmail)
-	const setPlant = waterStore((state) => state.setPlant)
-	const setLecturas = waterStore((state) => state.setLecturas)
-	const setWateringInfo = waterStore((state) => state.setWateringInfo)
-	const setLastTimeWatered = waterStore((state) => state.setLastTimeWatered)
 
 	const loginUser = async () => {
 		const email = userEmailRef.current
@@ -81,15 +73,7 @@ const Page = () => {
 
 			const data = await response.json()
 
-			setUserName(data.user.name)
-			setEmail(data.user.email)
-			setPlant(data.user.plant)
-			setLecturas(data.readings)
-			const originalDate = data.reading
-			const formattedDate = new Date(originalDate).toISOString().split("T")[0]
-			setLastTimeWatered(formattedDate)
-			setWateringInfo(data.readings.length)
-			alert(`Welcome${data.user.name}`)
+			alert(`Welcome${data.name}`)
 			setTimeout(() => {
 				router.push("/dashboard")
 			}, 2000)

@@ -10,7 +10,9 @@ import { useState, useEffect } from "react"
 
 const Page = () => {
 	const [plant, setPlant] = useState("Sansevieria")
-	const [lecturas, setLecturas] = useState<number[]>([])
+	const [lecturas, setLecturas] = useState([
+		10, 20, 30, 40, 50, 60, 70, 80, 90, 100,
+	])
 	const [numberOfWaterings, setNumberOfWaterings] = useState(3)
 	const [lastTimeWatered, setLastTimeWatered] = useState("2022-01-01")
 
@@ -32,9 +34,7 @@ const Page = () => {
 
 		const data = await response.json()
 		setLecturas(data.readings)
-		const formattedDate = new Date(data.lastReading.date)
-			.toISOString()
-			.split("T")[0]
+		const formattedDate = data.lastReading.date.slice(0, 10)
 		setLastTimeWatered(formattedDate)
 	}
 
