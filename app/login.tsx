@@ -24,7 +24,6 @@ const Page = () => {
 		}
 
 		try {
-			// //*API CALL
 			const backendURL =
 				"https://aquasproutbackend-production.up.railway.app/login"
 			const headers = new Headers()
@@ -53,7 +52,6 @@ const Page = () => {
 			setEmail(data.user.email)
 			setPlant(data.user.plant)
 			setLecturas(data.readings)
-			//*Format the last reading
 			const originalDate = data.reading
 			const formattedDate = new Date(originalDate).toISOString().split("T")[0]
 			setLastTimeWatered(formattedDate)
@@ -63,9 +61,9 @@ const Page = () => {
 			setTimeout(() => {
 				router.push("/dashboard")
 			}, 2000)
-		} catch (error) {
-			console.log(error)
-			Alert.alert("Error creating user")
+			// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+		} catch (error: any) {
+			Alert.alert(error.message)
 		}
 	}
 	return (
