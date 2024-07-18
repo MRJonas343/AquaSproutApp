@@ -24,7 +24,6 @@ const Page = () => {
 		}
 
 		try {
-			console.log("Trying to login")
 			// //*API CALL
 			const backendURL =
 				"https://aquasproutbackend-production.up.railway.app/login"
