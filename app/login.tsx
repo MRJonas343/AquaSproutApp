@@ -24,9 +24,10 @@ const Page = () => {
 		}
 
 		try {
+			console.log("Trying to login")
 			// //*API CALL
 			const backendURL =
-				"https://aquasproutbackend-production.up.railway.app/signup"
+				"https://aquasproutbackend-production.up.railway.app/login"
 			const headers = new Headers()
 			headers.append("Content-Type", "application/json")
 			headers.append("email", email)
