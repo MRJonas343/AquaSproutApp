@@ -42,6 +42,52 @@ const Page = () => {
 		getData()
 	}, [])
 
+	const stopWatering = async () => {
+		Alert.alert("Stop Watering")
+		const backendURL =
+			"https://aquasproutbackend-production.up.railway.app/waterPump"
+		const headers = new Headers()
+		headers.append("Content-Type", "application/json")
+
+		const bodyRequest = {
+			isOn: false,
+		}
+
+		const response = await fetch(backendURL, {
+			method: "PATCH",
+			headers: headers,
+			body: JSON.stringify(bodyRequest),
+		})
+
+		if (response.status !== 200) {
+			Alert.alert("Error stopping watering")
+			return
+		}
+	}
+
+	const turnOnWatering = async () => {
+		Alert.alert("Watering")
+		const backendURL =
+			"https://aquasproutbackend-production.up.railway.app/waterPump"
+		const headers = new Headers()
+		headers.append("Content-Type", "application/json")
+
+		const bodyRequest = {
+			isOn: true,
+		}
+
+		const response = await fetch(backendURL, {
+			method: "PATCH",
+			headers: headers,
+			body: JSON.stringify(bodyRequest),
+		})
+
+		if (response.status !== 200) {
+			Alert.alert("Error starting watering")
+			return
+		}
+	}
+
 	return (
 		<View className="bg-[#04F093] w-screen h-screen flex justify-center">
 			<View className="bg-white p-4 w-[90%] flex mx-auto h-[92%] rounded-xl">
@@ -131,7 +177,7 @@ const Page = () => {
 					<View
 						className="w-full flex flex-row justify-around mb-4 bg-[#10E78F] p-4 rounded-md mt-2"
 						onTouchEnd={() => {
-							Alert.alert("Watering", "Watering the plant")
+							turnOnWatering()
 						}}
 					>
 						<Image className="w-10 h-10" source={watering} />
@@ -145,7 +191,7 @@ const Page = () => {
 					<View
 						className="w-full flex flex-row justify-around mb-4 bg-[#98FB98] p-4 rounded-md mt-2"
 						onTouchEnd={() => {
-							Alert.alert("Stop Watering", "Stop watering the plant")
+							stopWatering()
 						}}
 					>
 						<Image className="w-10 h-10" source={noWatering} />
